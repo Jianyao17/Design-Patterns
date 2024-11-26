@@ -14,7 +14,7 @@ namespace DesignPatterns.Singleton
         public static T Instance {
             get {
                 if (instance == null) {
-                    instance = FindObjectOfType<T>();
+                    instance = FindFirstObjectByType<T>();
                     if (instance == null) {
                         var obj = new GameObject(typeof(T).Name + " Auto-Generated");
                         instance = obj.AddComponent<T>();

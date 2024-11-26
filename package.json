@@ -1,7 +1,7 @@
 
 {
   "name": "com.jianyao17.designpatterns",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Programming Design Patterns",
   "description": "Template / Implementation of Programming Design Patterns in Unity",
   "unity": "2020.3",

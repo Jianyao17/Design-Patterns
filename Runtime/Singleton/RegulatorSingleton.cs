@@ -44,11 +44,11 @@ namespace DesignPattern.Singleton
             DontDestroyOnLoad(gameObject);
             
             // Destroy all any old singleton with the same type
-            T[] oldInstances = FindObjectsByType<T>(FindObjectsSortMode.None);
-            foreach (var oldInstance in oldInstances)
+            T[] oldInstances = Resources.FindObjectsOfTypeAll<T>();
+            foreach (T oldInstance in oldInstances)
             {
                 if (oldInstance.GetComponent<RegulatorSingleton<T>>().InitilizationTime < InitilizationTime)
-                    Destroy(oldInstance.gameObject);
+                    DestroyImmediate(oldInstance.gameObject);
             }
             
             if (instance == null) {
