@@ -1,0 +1,48 @@
+
+name: Test Unity Package 🧪
+
+on: 
+  workflow_dispatch:
+  pull_request:
+  push: 
+    branches:
+      - master
+
+jobs:
+  test:
+    name: Test My Package 🧪
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+        
+      # Temporary Copy this repo dir 
+      # to new subFolder for testing 
+      - name: Copy dir to new dir
+        run: |
+          echo "Current directory:"
+          pwd
+          rsync -a "$GITHUB_WORKSPACE/" "./copiedProject/"
+          echo "Contents of copiedProject:"
+          ls -la "./copiedProject"
+          
+          
+      # Test
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v4
+        id: tests
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          packageMode: true
+          testMode: playmode
+          unityVersion: '2020.3.0f1'
+          checkName: 'PlayMode Test Results'
+          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;assemblyFilters:+my.assembly.*'
+          projectPath: ./copiedProject
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
