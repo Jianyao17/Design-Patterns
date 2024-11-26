@@ -1,0 +1,15 @@
+
+{
+  "name": "com.jianyao17.designpatterns",
+  "version": "1.0.0",
+  "displayName": "Programming Design Patterns",
+  "description": "Template / Implementation of Programming Design Patterns in Unity",
+  "unity": "2020.3",
+  "author": {
+    "name": "Jianyao17",
+    "url": "https://github.com/Jianyao17"
+  },
+  "exclude": [
+    "Tests/**"
+  ]
+}
