@@ -1,6 +1,8 @@
+using System.Collections;
 using DesignPatterns.Singleton;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace DesignPatterns.Tests.Singleton
 {
@@ -29,8 +31,8 @@ namespace DesignPatterns.Tests.Singleton
             }
         }
 
-        [Test]
-        public void Awake_Calls_InitializeSingleton()
+        [UnityTest]
+        public IEnumerator Awake_Calls_InitializeSingleton()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestSingleton));
@@ -39,11 +41,12 @@ namespace DesignPatterns.Tests.Singleton
             var singleton = gameObject.AddComponent<TestSingleton>();
 
             // Assert
+            yield return null;
             Assert.IsTrue(singleton.AwakeCalled, "Awake should call InitializeSingleton.");
         }
 
-        [Test]
-        public void Instance_WhenNull_FindsExistingInstance()
+        [UnityTest]
+        public IEnumerator Instance_WhenNull_FindsExistingInstance()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestSingleton));
@@ -53,22 +56,24 @@ namespace DesignPatterns.Tests.Singleton
             var instance = TestSingleton.Instance;
 
             // Assert
+            yield return null;
             Assert.AreEqual(singleton, instance, "Instance should return the existing instance.");
         }
 
-        [Test]
-        public void Instance_WhenNullAndNoExistingInstance_CreatesNewInstance()
+        [UnityTest]
+        public IEnumerator Instance_WhenNullAndNoExistingInstance_CreatesNewInstance()
         {
             // Act
             var instance = TestSingleton.Instance;
 
             // Assert
+            yield return null;
             Assert.IsNotNull(instance, "Instance should create a new instance if none exists.");
             Assert.IsTrue(instance.name.Contains(nameof(TestSingleton)), "The new instance should have the correct name.");
         }
 
-        [Test]
-        public void HasInstance_ReturnsTrue_WhenInstanceExists()
+        [UnityTest]
+        public IEnumerator HasInstance_ReturnsTrue_WhenInstanceExists()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestSingleton));
@@ -78,21 +83,23 @@ namespace DesignPatterns.Tests.Singleton
             var hasInstance = TestSingleton.HasInstance;
 
             // Assert
+            yield return null;
             Assert.IsTrue(hasInstance, "HasInstance should return true when an instance exists.");
         }
 
-        [Test]
-        public void HasInstance_ReturnsFalse_WhenInstanceDoesNotExist()
+        [UnityTest]
+        public IEnumerator HasInstance_ReturnsFalse_WhenInstanceDoesNotExist()
         {
             // Act
             var hasInstance = TestSingleton.HasInstance;
 
             // Assert
+            yield return null;
             Assert.IsFalse(hasInstance, "HasInstance should return false when no instance exists.");
         }
 
-        [Test]
-        public void TryGetInstance_ReturnsInstance_WhenInstanceExists()
+        [UnityTest]
+        public IEnumerator TryGetInstance_ReturnsInstance_WhenInstanceExists()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestSingleton));
@@ -102,16 +109,18 @@ namespace DesignPatterns.Tests.Singleton
             var instance = TestSingleton.TryGetInstance();
 
             // Assert
+            yield return null;
             Assert.AreEqual(singleton, instance, "TryGetInstance should return the existing instance.");
         }
 
-        [Test]
-        public void TryGetInstance_ReturnsNull_WhenInstanceDoesNotExist()
+        [UnityTest]
+        public IEnumerator TryGetInstance_ReturnsNull_WhenInstanceDoesNotExist()
         {
             // Act
             var instance = TestSingleton.TryGetInstance();
 
             // Assert
+            yield return null;
             Assert.IsNull(instance, "TryGetInstance should return null when no instance exists.");
         }
     }

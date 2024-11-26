@@ -2,9 +2,9 @@
     "name": "Designpatterns.Tests",
     "rootNamespace": "DesignPatterns",
     "references": [
-        "DesignPatterns",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "DesignPatterns"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

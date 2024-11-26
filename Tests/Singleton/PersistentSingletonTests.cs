@@ -31,8 +31,8 @@ namespace DesignPatterns.Tests.Singleton
             }
         }
 
-        [Test]
-        public void DontDestroyOnLoad_WorksAsExpected()
+        [UnityTest]
+        public IEnumerator DontDestroyOnLoad_WorksAsExpected()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestPersistentSingleton));
@@ -42,6 +42,7 @@ namespace DesignPatterns.Tests.Singleton
             var wasAddedToDontDestroyOnLoad = singleton.gameObject.scene.name == "DontDestroyOnLoad";
 
             // Assert
+            yield return null;
             Assert.IsTrue(wasAddedToDontDestroyOnLoad, "GameObject should be moved to DontDestroyOnLoad scene.");
         }
 
@@ -65,8 +66,8 @@ namespace DesignPatterns.Tests.Singleton
             Assert.IsTrue(isSecondDestroyed, "Second instance should be destroyed.");
         }
 
-        [Test]
-        public void GameObject_MovedToRoot_IfAutoUnparrentOnAwake()
+        [UnityTest]
+        public IEnumerator GameObject_MovedToRoot_IfAutoUnparrentOnAwake()
         {
             // Arrange
             var parent = new GameObject("Parent");
@@ -78,11 +79,12 @@ namespace DesignPatterns.Tests.Singleton
             var isInRoot = singleton.transform.parent == null;
 
             // Assert
+            yield return null;
             Assert.IsTrue(isInRoot, "GameObject should be moved to root when AutoUnparrentOnAwake is true.");
         }
 
-        [Test]
-        public void Awake_Calls_InitializeSingleton()
+        [UnityTest]
+        public IEnumerator Awake_Calls_InitializeSingleton()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestPersistentSingleton));
@@ -91,11 +93,12 @@ namespace DesignPatterns.Tests.Singleton
             var singleton = gameObject.AddComponent<TestPersistentSingleton>();
 
             // Assert
+            yield return null;
             Assert.IsTrue(singleton.AwakeCalled, "Awake should call InitializeSingleton.");
         }
 
-        [Test]
-        public void Instance_WhenNull_FindsExistingInstance()
+        [UnityTest]
+        public IEnumerator Instance_WhenNull_FindsExistingInstance()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestPersistentSingleton));
@@ -105,23 +108,25 @@ namespace DesignPatterns.Tests.Singleton
             var instance = TestPersistentSingleton.Instance;
 
             // Assert
+            yield return null;
             Assert.AreEqual(singleton, instance, "Instance should return the existing instance.");
         }
 
-        [Test]
-        public void Instance_WhenNullAndNoExistingInstance_CreatesNewInstance()
+        [UnityTest]
+        public IEnumerator Instance_WhenNullAndNoExistingInstance_CreatesNewInstance()
         {
             // Act
             var instance = TestPersistentSingleton.Instance;
 
             // Assert
+            yield return null;
             Assert.IsNotNull(instance, "Instance should create a new instance if none exists.");
             Assert.IsTrue(instance.name.Contains(nameof(TestPersistentSingleton)),
                 "The new instance should have the correct name.");
         }
 
-        [Test]
-        public void HasInstance_ReturnsTrue_WhenInstanceExists()
+        [UnityTest]
+        public IEnumerator HasInstance_ReturnsTrue_WhenInstanceExists()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestPersistentSingleton));
@@ -131,21 +136,23 @@ namespace DesignPatterns.Tests.Singleton
             var hasInstance = TestPersistentSingleton.HasInstance;
 
             // Assert
+            yield return null;
             Assert.IsTrue(hasInstance, "HasInstance should return true when an instance exists.");
         }
 
-        [Test]
-        public void HasInstance_ReturnsFalse_WhenInstanceDoesNotExist()
+        [UnityTest]
+        public IEnumerator HasInstance_ReturnsFalse_WhenInstanceDoesNotExist()
         {
             // Act
             var hasInstance = TestPersistentSingleton.HasInstance;
 
             // Assert
+            yield return null;
             Assert.IsFalse(hasInstance, "HasInstance should return false when no instance exists.");
         }
 
-        [Test]
-        public void TryGetInstance_ReturnsInstance_WhenInstanceExists()
+        [UnityTest]
+        public IEnumerator TryGetInstance_ReturnsInstance_WhenInstanceExists()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestPersistentSingleton));
@@ -155,16 +162,18 @@ namespace DesignPatterns.Tests.Singleton
             var instance = TestPersistentSingleton.TryGetInstance();
 
             // Assert
+            yield return null;
             Assert.AreEqual(singleton, instance, "TryGetInstance should return the existing instance.");
         }
 
-        [Test]
-        public void TryGetInstance_ReturnsNull_WhenInstanceDoesNotExist()
+        [UnityTest]
+        public IEnumerator TryGetInstance_ReturnsNull_WhenInstanceDoesNotExist()
         {
             // Act
             var instance = TestPersistentSingleton.TryGetInstance();
 
             // Assert
+            yield return null;
             Assert.IsNull(instance, "TryGetInstance should return null when no instance exists.");
         }
     }

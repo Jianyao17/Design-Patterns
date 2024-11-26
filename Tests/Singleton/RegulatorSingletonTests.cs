@@ -32,8 +32,8 @@ namespace DesignPatterns.Tests.Singleton
             }
         }
 
-        [Test]
-        public void DontDestroyOnLoad_WorksAsExpected()
+        [UnityTest]
+        public IEnumerator DontDestroyOnLoad_WorksAsExpected()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestRegulatorSingleton));
@@ -43,11 +43,12 @@ namespace DesignPatterns.Tests.Singleton
             var wasAddedToDontDestroyOnLoad = singleton.gameObject.scene.name == "DontDestroyOnLoad";
 
             // Assert
+            yield return null;
             Assert.IsTrue(wasAddedToDontDestroyOnLoad, "GameObject should be moved to DontDestroyOnLoad scene.");
         }
 
-        [Test]
-        public void InitializeSingleton_IsCalled_OnAwake()
+        [UnityTest]
+        public IEnumerator InitializeSingleton_IsCalled_OnAwake()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestRegulatorSingleton));
@@ -56,6 +57,7 @@ namespace DesignPatterns.Tests.Singleton
             var singleton = gameObject.AddComponent<TestRegulatorSingleton>();
 
             // Assert
+            yield return null;
             Assert.IsTrue(singleton.AwakeCalled, "Awake should call InitializeSingleton.");
         }
 
@@ -78,8 +80,8 @@ namespace DesignPatterns.Tests.Singleton
             Assert.AreEqual(newSingleton, newInstanceReference, "Instance reference should update to the new singleton.");
         }
 
-        [Test]
-        public void Instance_WhenNull_FindsExistingInstance()
+        [UnityTest]
+        public IEnumerator Instance_WhenNull_FindsExistingInstance()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestRegulatorSingleton));
@@ -89,22 +91,24 @@ namespace DesignPatterns.Tests.Singleton
             var instance = TestRegulatorSingleton.Instance;
 
             // Assert
+            yield return null;
             Assert.AreEqual(singleton, instance, "Instance should find the existing singleton.");
         }
 
-        [Test]
-        public void Instance_WhenNullAndNoExistingInstance_CreatesNewInstance_WithHideAndDontSave()
+        [UnityTest]
+        public IEnumerator Instance_WhenNullAndNoExistingInstance_CreatesNewInstance_WithHideAndDontSave()
         {
             // Act
             var instance = TestRegulatorSingleton.Instance;
 
             // Assert
+            yield return null;
             Assert.IsNotNull(instance, "Instance should create a new singleton if none exists.");
             Assert.AreEqual(HideFlags.HideAndDontSave, instance.gameObject.hideFlags, "New singleton GameObject should have HideAndDontSave flag.");
         }
 
-        [Test]
-        public void HasInstance_ReturnsTrue_WhenInstanceExists()
+        [UnityTest]
+        public IEnumerator HasInstance_ReturnsTrue_WhenInstanceExists()
         {
             // Arrange
             var gameObject = new GameObject(nameof(TestRegulatorSingleton));
@@ -114,16 +118,18 @@ namespace DesignPatterns.Tests.Singleton
             var hasInstance = TestRegulatorSingleton.HasInstance;
 
             // Assert
+            yield return null;
             Assert.IsTrue(hasInstance, "HasInstance should return true when a singleton exists.");
         }
 
-        [Test]
-        public void HasInstance_ReturnsFalse_WhenInstanceDoesNotExist()
+        [UnityTest]
+        public IEnumerator HasInstance_ReturnsFalse_WhenInstanceDoesNotExist()
         {
             // Act
             var hasInstance = TestRegulatorSingleton.HasInstance;
 
             // Assert
+            yield return null;
             Assert.IsFalse(hasInstance, "HasInstance should return false when no singleton exists.");
         }
     }
