@@ -67,13 +67,15 @@ namespace DesignPatterns.Tests.Singleton
             // Arrange
             var oldSingleton = new GameObject(nameof(TestRegulatorSingleton)).AddComponent<TestRegulatorSingleton>();
             var oldInstanceReference = TestRegulatorSingleton.Instance;
-            
-            // Wait one frame to allow Unity to process Destroy
+
             yield return null;
             
             // Act
             var newSingleton = new GameObject(nameof(TestRegulatorSingleton)).AddComponent<TestRegulatorSingleton>();
             var newInstanceReference = TestRegulatorSingleton.Instance;
+            
+            // Wait one frame to allow Unity to process Destroy
+            yield return null;
 
             // Assert
             Assert.IsTrue(oldSingleton == null, "Old singleton instance should be destroyed.");
